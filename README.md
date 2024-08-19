@@ -2,7 +2,6 @@
 A Java project with the purpose of recording my JDBC learnings.
 
 # Dependencies
-## Mysql 
 * MySQL 9.0.1 ([Link](https://dev.mysql.com/downloads/mysql/))
 * MySQL ConnectorJ 9.0.0 ([Link](https://dev.mysql.com/downloads/connector/j/?os=26)) 
 
