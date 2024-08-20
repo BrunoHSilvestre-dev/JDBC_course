@@ -11,14 +11,19 @@ import java.time.LocalDate;
 import db.DB;
 import db.DBException;
 import db.DBIntegrityException;
-import model.entities.Department;
+import model.dao.DaoFactory;
+import model.dao.SellerDao;
+import model.entities.Seller;
 
 public class Program {
 
 	public static void main(String[] args) {
-//		Connection conn = DB.getConnection();	
 //		DB.closeConnection();
-
+		SellerDao sellerDao = DaoFactory.createSellerDao();
+		
+		Seller seller = sellerDao.findById(3);
+		
+		System.out.println(seller);
 	}
 
 	private static void selectExample() {
