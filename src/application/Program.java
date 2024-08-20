@@ -18,13 +18,12 @@ import model.entities.Seller;
 public class Program {
 
 	public static void main(String[] args) {
-//		DB.closeConnection();
-//		teste
+		System.out.println("=== Test 01 - Seller - FindById ===");
 		SellerDao sellerDao = DaoFactory.createSellerDao();
-		
 		Seller seller = sellerDao.findById(3);
-		
 		System.out.println(seller);
+		
+		DB.closeConnection();
 	}
 
 	private static void selectExample() {
