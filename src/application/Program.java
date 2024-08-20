@@ -11,18 +11,14 @@ import java.time.LocalDate;
 import db.DB;
 import db.DBException;
 import db.DBIntegrityException;
+import model.entities.Department;
 
 public class Program {
 
 	public static void main(String[] args) {
 //		Connection conn = DB.getConnection();	
 //		DB.closeConnection();
-		
-//		selectExample();
-//		insertExample();
-//		updateExample();
-//		deleteExample();
-		transactionExample();
+
 	}
 
 	private static void selectExample() {
