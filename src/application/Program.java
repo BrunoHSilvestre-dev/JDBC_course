@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 import db.DB;
+import db.DBIntegrityException;
 
 public class Program {
 
@@ -18,7 +19,8 @@ public class Program {
 		
 //		selectExample();
 //		insertExample();
-		updateExample();
+//		updateExample();
+		deleteExample();
 	}
 
 	private static void selectExample() {
@@ -47,11 +49,11 @@ public class Program {
 	
 	private static void insertExample() {
 		Connection conn = null;
-		PreparedStatement ps = null;
+		PreparedStatement st = null;
 		try {
 			conn = DB.getConnection();
 			
-			ps = conn.prepareStatement(
+			st = conn.prepareStatement(
 				"insert into seller " + 
 				"(Name, Email, BirthDate, BaseSalary, DepartmentId)" +
 				"values " + 
@@ -59,20 +61,20 @@ public class Program {
 				Statement.RETURN_GENERATED_KEYS
 			);
 			
-			ps.setString(1, "Carl Purple");
-			ps.setString(2, "carl@gmail.com");
-//			ps.setDate(3, new java.sql.Date(0));
-//			ps.setObject(3, LocalDateTime.now());
-			ps.setDate(3, Date.valueOf(LocalDate.now()));
-			ps.setDouble(4, 3000.0);
-			ps.setInt(5, 4);
+			st.setString(1, "Carl Purple");
+			st.setString(2, "carl@gmail.com");
+//			st.setDate(3, new java.sql.Date(0));
+//			st.setObject(3, LocalDateTime.now());
+			st.setDate(3, Date.valueOf(LocalDate.now()));
+			st.setDouble(4, 3000.0);
+			st.setInt(5, 4);
 			
-			int rowsAffected = ps.executeUpdate();
+			int rowsAffected = st.executeUpdate();
 			
 			System.out.println("Rows affected: " + rowsAffected);
 			
 			if (rowsAffected > 0) {
-				ResultSet rs = ps.getGeneratedKeys();
+				ResultSet rs = st.getGeneratedKeys();
 				
 				while (rs.next()) {
 					System.out.println("Key: " + rs.getInt(1));
@@ -82,34 +84,59 @@ public class Program {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DB.closeStatement(ps);
+			DB.closeStatement(st);
 			DB.closeConnection();
 		}
 	}
 	
 	private static void updateExample() {
 		Connection conn = null;
-		PreparedStatement ps = null;
+		PreparedStatement st = null;
 		try {
 			conn = DB.getConnection();
 			
-			ps = conn.prepareStatement(
+			st = conn.prepareStatement(
 				"update seller " + 
 				"set BaseSalary = BaseSalary + ? " +
 				"where DepartmentId = ? "
 			);
 			
-			ps.setDouble(1, 100);
-			ps.setInt(2, 3);
+			st.setDouble(1, 100);
+			st.setInt(2, 3);
 			
-			int rowsAffected = ps.executeUpdate();
+			int rowsAffected = st.executeUpdate();
 			
 			System.out.println("Rows affected: " + rowsAffected);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DB.closeStatement(ps);
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+	}
+	
+	private static void deleteExample() {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = DB.getConnection();
+			
+			st = conn.prepareStatement(
+				"delete from department " + 
+				"where Id = ? "
+			);
+			
+			st.setInt(1, 2);
+			
+			int rowsAffected = st.executeUpdate();
+			
+			System.out.println("Rows affected: " + rowsAffected);
+			
+		} catch (SQLException e) {
+			throw new DBIntegrityException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
 			DB.closeConnection();
 		}
 	}
