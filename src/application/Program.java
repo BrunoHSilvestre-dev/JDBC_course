@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 import db.DB;
+import db.DBException;
 import db.DBIntegrityException;
 
 public class Program {
@@ -20,7 +21,8 @@ public class Program {
 //		selectExample();
 //		insertExample();
 //		updateExample();
-		deleteExample();
+//		deleteExample();
+		transactionExample();
 	}
 
 	private static void selectExample() {
@@ -135,6 +137,42 @@ public class Program {
 			
 		} catch (SQLException e) {
 			throw new DBIntegrityException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+	}
+	
+	private static void transactionExample() {
+		Connection conn = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			st = conn.createStatement();
+			
+			int rows1 = st.executeUpdate("update seller set BaseSalary = 2090 where DepartmentId = 1");
+			
+//			if (true) {
+//				throw new SQLException("Fake error");
+//			}
+			
+			int rows2 = st.executeUpdate("update seller set BaseSalary = 3090 where DepartmentId = 2");
+			
+			conn.commit();
+			
+			System.out.println("Rows 1: " + rows1);
+			System.out.println("Rows 2: " + rows2);
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				throw new DBException("Transaction rolledback, reason: " + e.getMessage());
+			} catch (SQLException e1) {
+				throw new DBException("Error trying to rollback, reason: " + e1.getMessage());
+			}
 		} finally {
 			DB.closeStatement(st);
 			DB.closeConnection();
