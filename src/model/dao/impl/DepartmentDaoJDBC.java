@@ -53,10 +53,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			rs = st.executeQuery();
 			
 			if (rs.next()) {
-				return new Department(
-					rs.getInt(1),
-					rs.getString(2)
-				);
+				return instanciateDepartment(rs);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e.getMessage());
@@ -66,6 +63,13 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 		}
 		
 		return null;
+	}
+
+	private Department instanciateDepartment(ResultSet rs) throws SQLException {
+		return new Department(
+			rs.getInt("Id"),
+			rs.getString("Name")
+		);
 	}
 
 	@Override
