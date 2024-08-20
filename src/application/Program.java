@@ -19,6 +19,7 @@ public class Program {
 
 	public static void main(String[] args) {
 //		DB.closeConnection();
+//		teste
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		
 		Seller seller = sellerDao.findById(3);
