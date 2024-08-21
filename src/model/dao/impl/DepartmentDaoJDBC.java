@@ -73,7 +73,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	}
 
 	@Override
-	public List<Department> findAll(Integer id) {
+	public List<Department> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

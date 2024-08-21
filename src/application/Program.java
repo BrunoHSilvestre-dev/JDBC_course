@@ -24,9 +24,15 @@ public class Program {
 		
 		System.out.println("=== Test 01 - Seller - FindById ===");
 		System.out.println(sellerDao.findById(3));
+		System.out.println();
 		
 		System.out.println("=== Test 02 - Seller - FindByDepartment(2) ===");
-		sellerDao.findByDepartment(departmentDao.findById(12)).forEach(System.out::println);
+		sellerDao.findByDepartment(departmentDao.findById(2)).forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("=== Test 03 - Seller - FindAll ===");
+		sellerDao.findAll().forEach(System.out::println);
+		System.out.println();
 		
 		DB.closeConnection();
 	}
