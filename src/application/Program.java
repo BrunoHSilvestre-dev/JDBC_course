@@ -34,6 +34,11 @@ public class Program {
 		sellerDao.findAll().forEach(System.out::println);
 		System.out.println();
 		
+		System.out.println("=== Test 04 - Seller - Insert ===");
+		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", LocalDate.now(), 4000.0, departmentDao.findById(2));
+		sellerDao.insert(newSeller);
+		System.out.println("Inserted with success. New Id: " + newSeller.getId());
+		
 		DB.closeConnection();
 	}
 
