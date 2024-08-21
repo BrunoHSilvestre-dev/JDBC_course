@@ -12,16 +12,21 @@ import db.DB;
 import db.DBException;
 import db.DBIntegrityException;
 import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
 import model.dao.SellerDao;
 import model.entities.Seller;
 
 public class Program {
 
 	public static void main(String[] args) {
-		System.out.println("=== Test 01 - Seller - FindById ===");
 		SellerDao sellerDao = DaoFactory.createSellerDao();
-		Seller seller = sellerDao.findById(3);
-		System.out.println(seller);
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+		
+		System.out.println("=== Test 01 - Seller - FindById ===");
+		System.out.println(sellerDao.findById(3));
+		
+		System.out.println("=== Test 02 - Seller - FindByDepartment(2) ===");
+		sellerDao.findByDepartment(departmentDao.findById(12)).forEach(System.out::println);
 		
 		DB.closeConnection();
 	}
