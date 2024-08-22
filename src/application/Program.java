@@ -50,6 +50,9 @@ public class Program {
 		
 		sellerDao.update(newSeller);
 		
+		System.out.println("=== Test 06 - Seller - Delete ===");
+		sellerDao.deleteById(11);
+		
 		DB.closeConnection();
 	}
 
