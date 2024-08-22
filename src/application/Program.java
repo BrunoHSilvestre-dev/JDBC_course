@@ -35,9 +35,20 @@ public class Program {
 		System.out.println();
 		
 		System.out.println("=== Test 04 - Seller - Insert ===");
-		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", LocalDate.now(), 4000.0, departmentDao.findById(2));
-		sellerDao.insert(newSeller);
-		System.out.println("Inserted with success. New Id: " + newSeller.getId());
+//		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", LocalDate.now(), 4000.0, departmentDao.findById(2));
+//		sellerDao.insert(newSeller);
+//		System.out.println("Inserted with success. New Id: " + newSeller.getId());
+		
+		System.out.println("=== Test 05 - Seller - Update ===");
+		
+		Seller newSeller = sellerDao.findById(11);
+		newSeller.setName("GregCris");
+		newSeller.setEmail("greg@cris.com");
+		newSeller.setBirthDate(LocalDate.now());
+		newSeller.setBaseSalary(5000.0);
+		newSeller.setDepartment(departmentDao.findById(3));
+		
+		sellerDao.update(newSeller);
 		
 		DB.closeConnection();
 	}
