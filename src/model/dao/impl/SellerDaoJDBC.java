@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,11 +29,8 @@ public class SellerDaoJDBC implements SellerDao{
 
 	@Override
 	public void insert(Seller seller) {
-		Connection conn = null;
 		PreparedStatement st = null;
 		try {
-			conn = DB.getConnection();
-			
 			st = conn.prepareStatement(
 				"insert into seller " + 
 				"(Name, Email, BirthDate, BaseSalary, DepartmentId)" +
@@ -71,11 +67,8 @@ public class SellerDaoJDBC implements SellerDao{
 
 	@Override
 	public void update(Seller seller) {
-		Connection conn = null;
 		PreparedStatement st = null;
 		try {
-			conn = DB.getConnection();
-			
 			st = conn.prepareStatement(
 				"update seller " + 
 				"set Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? " +
@@ -100,11 +93,8 @@ public class SellerDaoJDBC implements SellerDao{
 
 	@Override
 	public void deleteById(Integer id) {
-		Connection conn = null;
 		PreparedStatement st = null;
 		try {
-			conn = DB.getConnection();
-			
 			st = conn.prepareStatement("delete from seller where Id = ?");
 			st.setInt(1, id);
 			st.executeUpdate();

@@ -14,6 +14,7 @@ import db.DBIntegrityException;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.dao.SellerDao;
+import model.entities.Department;
 import model.entities.Seller;
 
 public class Program {
@@ -22,36 +23,56 @@ public class Program {
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
-		System.out.println("=== Test 01 - Seller - FindById ===");
-		System.out.println(sellerDao.findById(3));
-		System.out.println();
-		
-		System.out.println("=== Test 02 - Seller - FindByDepartment(2) ===");
-		sellerDao.findByDepartment(departmentDao.findById(2)).forEach(System.out::println);
-		System.out.println();
-		
-		System.out.println("=== Test 03 - Seller - FindAll ===");
-		sellerDao.findAll().forEach(System.out::println);
-		System.out.println();
-		
-		System.out.println("=== Test 04 - Seller - Insert ===");
+//		System.out.println("=== Test 01 - Seller - FindById ===");
+//		System.out.println(sellerDao.findById(3));
+//		System.out.println();
+//		
+//		System.out.println("=== Test 02 - Seller - FindByDepartment(2) ===");
+//		sellerDao.findByDepartment(departmentDao.findById(2)).forEach(System.out::println);
+//		System.out.println();
+//		
+//		System.out.println("=== Test 03 - Seller - FindAll ===");
+//		sellerDao.findAll().forEach(System.out::println);
+//		System.out.println();
+//		
+//		System.out.println("=== Test 04 - Seller - Insert ===");
 //		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", LocalDate.now(), 4000.0, departmentDao.findById(2));
 //		sellerDao.insert(newSeller);
 //		System.out.println("Inserted with success. New Id: " + newSeller.getId());
+//		
+//		System.out.println("=== Test 05 - Seller - Update ===");
+//		Seller newSeller = sellerDao.findById(11);
+//		newSeller.setName("GregCris");
+//		newSeller.setEmail("greg@cris.com");
+//		newSeller.setBirthDate(LocalDate.now());
+//		newSeller.setBaseSalary(5000.0);
+//		newSeller.setDepartment(departmentDao.findById(3));
+//		
+//		sellerDao.update(newSeller);
+//		
+//		System.out.println("=== Test 06 - Seller - Delete ===");
+//		sellerDao.deleteById(11);
 		
-		System.out.println("=== Test 05 - Seller - Update ===");
+		System.out.println("=== Test 01 - Department - FindById ===");
+		System.out.println(departmentDao.findById(3));
+		System.out.println();
 		
-		Seller newSeller = sellerDao.findById(11);
-		newSeller.setName("GregCris");
-		newSeller.setEmail("greg@cris.com");
-		newSeller.setBirthDate(LocalDate.now());
-		newSeller.setBaseSalary(5000.0);
-		newSeller.setDepartment(departmentDao.findById(3));
+		System.out.println("=== Test 02 - Department - FindAll ===");
+		departmentDao.findAll().forEach(System.out::println);
+		System.out.println();
 		
-		sellerDao.update(newSeller);
+		System.out.println("=== Test 03 - Department - Insert ===");
+		Department newDepartment = new Department(null, "Financial");
+		departmentDao.insert(newDepartment);
+		System.out.println("Inserted with success. New Id: " + newDepartment.getId());
 		
-		System.out.println("=== Test 06 - Seller - Delete ===");
-		sellerDao.deleteById(11);
+		System.out.println("=== Test 04 - Department - Update ===");
+		newDepartment = departmentDao.findById(4);
+		newDepartment.setName("Readings");
+		departmentDao.update(newDepartment);
+		
+		System.out.println("=== Test 05 - Department - Delete ===");
+		departmentDao.deleteById(5);
 		
 		DB.closeConnection();
 	}
